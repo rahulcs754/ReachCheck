@@ -5,7 +5,7 @@ branding:
   color: red
 inputs:
   github-token:
-    description: Token that can read Dependabot alerts. The workflow needs `security-events: read`.
+    description: "Token that can read Dependabot alerts. The workflow needs `security-events: read`."
     default: ${{ github.token }}
   repository:
     description: owner/name to read alerts from. Defaults to the current repository.
