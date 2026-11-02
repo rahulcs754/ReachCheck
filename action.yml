@@ -1,0 +1,43 @@
+name: ReachCheck
+description: Ranks open npm Dependabot alerts by real reachability (entry-point module graph, client/server side, vulnerable function calls).
+branding:
+  icon: crosshair
+  color: red
+inputs:
+  github-token:
+    description: "Token that can read Dependabot alerts. The workflow needs `security-events: read`."
+    default: ${{ github.token }}
+  repository:
+    description: owner/name to read alerts from. Defaults to the current repository.
+    required: false
+  working-directory:
+    description: Project folder to scan (for monorepos, the app folder).
+    default: "."
+  entries:
+    description: Extra entry point globs, comma or newline separated (e.g. "scripts/*.ts").
+    required: false
+  alerts-file:
+    description: Read alerts from this JSON file instead of the API (for testing).
+    required: false
+  fail-on:
+    description: "Fail when a reachable alert is at this severity or above: critical, high, medium, low or none."
+    default: none
+  vex-file:
+    description: Write an OpenVEX document to this path.
+    required: false
+outputs:
+  alerts:
+    description: Open npm alerts checked.
+  reachable:
+    description: Alerts whose package shipped code loads (called, reachable or via dependency).
+  called:
+    description: Alerts whose vulnerable function shipped code uses.
+  client:
+    description: Reachable alerts that ship in the browser bundle.
+  report:
+    description: JSON array of { number, package, severity, verdict, sides }.
+  vex-file:
+    description: Path of the OpenVEX file, when written.
+runs:
+  using: node20
+  main: dist/index.js
