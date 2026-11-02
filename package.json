@@ -1,0 +1,31 @@
+{
+  "name": "reachcheck",
+  "version": "0.1.0",
+  "description": "Ranks npm Dependabot alerts by real reachability: entry-point module graph, client/server side, vulnerable function calls",
+  "type": "module",
+  "bin": {
+    "reachcheck": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "lint": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": "github:rahulcs754/ReachCheck",
+  "dependencies": {
+    "@actions/core": "^3.0.1",
+    "@babel/parser": "^8.1.0",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@babel/types": "^8.1.0",
+    "@types/node": "^20.19.43",
+    "tsup": "8.5",
+    "typescript": "5.9",
+    "vitest": "^2.1.9"
+  }
+}
