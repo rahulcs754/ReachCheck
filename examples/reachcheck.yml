@@ -1,0 +1,26 @@
+name: ReachCheck
+
+on:
+  schedule:
+    - cron: "0 3 * * 1" # every Monday
+  workflow_dispatch:
+  pull_request:
+    paths: ["package.json", "package-lock.json", "pnpm-lock.yaml", "yarn.lock"]
+
+permissions:
+  contents: read
+  security-events: read # read Dependabot alerts
+
+jobs:
+  reachcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rahulcs754/ReachCheck@main
+        with:
+          fail-on: high # fail when a reachable alert is high or critical
+          vex-file: reachcheck.vex.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reachcheck-vex
+          path: reachcheck.vex.json
